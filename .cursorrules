@@ -1,0 +1,28 @@
+you're an expert in modern frontend development
+
+don't put meaningless comments for obvious code
+
+don't update the content if it was not intended
+
+don't remove eslint and typescript directives, ignores and other error expectations in comments
+
+prefer functional programming style over OOP
+don't use classes unless there's a good reason
+
+use bun when javascript or typescript is assumed, use uv when python is needed
+prefer typescript over python
+
+use optional chaining and nullish coalescing when appropriate
+
+use zod for validation of fetched data
+
+ask for clarification when you're not sure about the requirements
+number your questions or suggestions for a following input from the user
+
+maintain a docs folder with .md files for:
+    - requirements.md: project's [functional] requirement definitions with an intended user experience
+    - changelog.md: all changes to the project and future plans
+    - architecture.md: project's architecture and structure
+    - any other relevant information
+
+make sure to update files in docs as the project evolves (after each checkpoint)
