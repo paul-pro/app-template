@@ -1,19 +1,18 @@
 'use client';
 
-import { Button } from '@radix-ui/themes';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, useSession } from '~/lib/auth-client';
 import { useState } from 'react';
 
 export function LoginButton() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignIn = async () => {
     try {
       setIsLoading(true);
-      await signIn('twitter', {
-        callbackUrl: '/',
-        redirect: true,
+      await signIn.social({
+        provider: 'twitter',
+        callbackURL: '/',
       });
     } catch (error) {
       console.error('Failed to sign in:', error);
@@ -22,27 +21,23 @@ export function LoginButton() {
     }
   };
 
-  const handleSignOut = async () => {
-    try {
-      setIsLoading(true);
-      await signOut({
-        callbackUrl: '/',
-        redirect: true,
-      });
-    } catch (error) {
-      console.error('Failed to sign out:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (status === 'loading' || isLoading) {
-    return <Button disabled>Loading...</Button>;
+  if (!session && (session === undefined || isLoading)) {
+    return (
+      <button
+        disabled
+        className='rounded-md bg-zinc-800/90 px-6 py-2 text-white opacity-50'
+      >
+        Connecting...
+      </button>
+    );
   }
 
-  if (session) {
-    return <Button onClick={handleSignOut}>Sign out</Button>;
-  }
-
-  return <Button onClick={handleSignIn}>Sign in with Twitter</Button>;
+  return (
+    <button
+      onClick={handleSignIn}
+      className='rounded-md bg-zinc-800 px-6 py-2 text-white transition-colors hover:bg-zinc-900'
+    >
+      Sign in with Twitter
+    </button>
+  );
 }

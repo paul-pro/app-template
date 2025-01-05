@@ -5,47 +5,58 @@
 - **Language**: TypeScript
 - **Database**: PostgreSQL (Neon)
 - **ORM**: Drizzle
-- **Authentication**: Auth.js (NextAuth)
+- **Authentication**: Better Auth with OAuth support
 - **API Layer**: tRPC
-- **UI Components**: Radix UI Themes + Tailwind CSS
+- **Styling**: Tailwind CSS with minimal theme system
 - **Package Manager**: Bun
 - **Code Quality**: Biome (formatting, linting)
 
 ## Project Structure
 ```
-.
-├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── _components/       # Shared React components
-│   │   ├── api/              # API routes (if needed)
-│   │   └── (routes)/         # App routes and pages
-│   ├── server/
-│   │   ├── api/             # tRPC API definitions
-│   │   │   ├── routers/    # API route handlers
-│   │   │   └── root.ts     # Root router configuration
-│   │   ├── auth/           # Auth.js configuration
-│   │   └── db/             # Database configuration
-│   │       ├── index.ts    # Database client
-│   │       └── schema.ts   # Database schema
-│   ├── styles/             # Global styles
-│   │   └── globals.css     # Tailwind and global CSS
-│   └── lib/                # Shared utilities
-├── drizzle/                # Database migrations
-│   ├── meta/              # Migration metadata
-│   └── 0000_*.sql        # Migration files
-├── docs/                  # Project documentation
-└── .env                  # Environment variables
+src/
+├── app/                      # Next.js App Router
+│   ├── _components/         # Shared React components
+│   │   ├── login-button.tsx    # Auth UI components
+│   │   └── sign-out-button.tsx
+│   ├── api/                # API routes
+│   │   ├── auth/          # Auth API endpoints
+│   │   │   └── [...all]
+│   │   └── trpc/         # tRPC API handler
+│   │       └── [trpc]
+│   ├── dashboard/        # App routes
+│   ├── layout.tsx       # Root layout
+│   └── page.tsx        # Home page
+├── env.js              # Environment variables schema
+├── lib/               # Shared utilities
+│   ├── auth.ts       # Auth configuration
+│   ├── auth-client.ts # Auth client utilities
+│   └── middleware.ts # Request middleware
+├── server/          # Server-side code
+│   ├── api/        # tRPC API definitions
+│   │   ├── root.ts      # Root router
+│   │   ├── routers/    # API route handlers
+│   │   └── trpc.ts    # tRPC configuration
+│   └── db/        # Database layer
+│       ├── index.ts   # Database client
+│       └── schema.ts # Database schema
+├── styles/       # Global styles
+│   └── globals.css
+└── trpc/       # tRPC client setup
+    ├── query-client.ts
+    ├── react.tsx
+    └── server.ts
 ```
 
-## Data Flow Architecture
+## Core Features
 
 ### Authentication
-- Configurable OAuth providers via Auth.js
-- JWT-based session strategy
+- OAuth providers support via Better Auth
+- Token-based session strategy
 - HTTP-only cookies for security
 - Type-safe session data
-- Automatic token refresh
 - Protected routes and API endpoints
+- Client and server utilities for auth state
+- Middleware-based route protection
 
 ### API Layer
 - Type-safe API with tRPC
@@ -61,14 +72,23 @@
 - Migration management
 - Edge-ready with Neon
 
+### Theme System
+- Minimal CSS variables
+- Basic color scheme:
+  - Background/Foreground colors
+  - Border colors
+- Tailwind utility classes
+- Easy to extend
+
 ## Security Considerations
 
 ### Authentication
 - OAuth 2.0 providers support
-- JWT session strategy
+- Token-based session strategy
 - Origin-checked redirects
 - HTTP-only cookies
 - CSRF protection
+- Session management
 
 ### Data Safety
 - Environment variables for secrets
@@ -81,8 +101,9 @@
 - No client-side secrets
 - Parameterized queries
 - Regular security updates
-- Error boundaries
+- Error handling
 - Loading states
+- Proper session handling
 
 ## Development Workflow
 - Type checking with TypeScript
@@ -92,3 +113,11 @@
 - Database migrations with Drizzle
 - Edge-first development
 - Server components by default
+
+## Template Customization
+- Easy to add UI libraries
+- Extensible theme system
+- Configurable auth providers
+- Modular component structure
+- Clear separation of concerns
+- Minimal dependencies

@@ -1,19 +1,12 @@
 {
-  "version": "7",
-  "dialect": "postgresql",
+  "version": "5",
+  "dialect": "pg",
   "entries": [
     {
       "idx": 0,
       "version": "7",
-      "when": 1734970239094,
-      "tag": "0000_melted_stranger",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1734994098252,
-      "tag": "0001_bright_miss_america",
+      "when": 1736073289390,
+      "tag": "0000_remarkable_terror",
       "breakpoints": true
     }
   ]
